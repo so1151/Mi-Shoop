@@ -1,9 +1,11 @@
 <template>
-   <h1>首页</h1>
+    <div class="index">
+        index
+    </div>
 </template>
 
 <script>
 export default {
-    name:'Index'
+    name:'index'
 }
 </script>
