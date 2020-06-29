@@ -1,11 +1,15 @@
 module.exports = {
+    //proxy跨域设置
     devServer: {
         host: 'localhost',
         port: 8080,
         proxy: {
-            '/mock': {
-                target: 'https://easy-mock.com',
-                changeOrigin: false
+            '/api':{
+                target:'http://mall-pre.springboot.cn',
+                changeOrigin:true,
+                pathRewrite: {
+                    '/api':''
+                }
             }
         }
     }
