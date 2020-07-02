@@ -4,10 +4,35 @@
     justify-content: $hov;
     align-items: $col;
 }
+//背景图片
 @mixin bgImg($w:0,$h:0,$img:'',$size:contain) {
     display: inline-block;
     width: $w;
     height: $h;
     background: url($img) no-repeat center;
     background-size: $size;
+}
+//定位
+@mixin position($pos:absolute, $top:null, $left:null,$right:null, $w:100%, $h:100%) {
+    position:$pos;
+    top: $top;
+    left: $left;
+    right: $right;
+    width: $w;
+    height: $h;
+}
+//边框
+@mixin border($border:null,$bw:1px, $bc:$colorF, $bs:solid) {
+    @if($border == null){
+        border: $bw $bc $bs;
+    }
+    @if($border == 'border-right') {
+        border-right: $bw $bc $bs;
+    }
+    @if($border == 'border-left') {
+        border-left: $bw $bc $bs;
+    }
+    @if($border == 'border-top') {
+        border-top: $bw $bc $bs;
+    }
 }

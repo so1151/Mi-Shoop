@@ -2,6 +2,7 @@ import Vue from 'vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyLoad from 'vue-lazyload' //懒加载
 import { Message } from 'element-ui'
 import App from './App.vue'
 
@@ -36,6 +37,9 @@ axios.interceptors.response.use(function(response) {
 
 
 Vue.use(VueAxios,axios)
+Vue.use(VueLazyLoad, {
+  loading:'/imgs/loading-svg/loading-bars.svg'
+})
 Vue.prototype.$message = Message;
 
 Vue.config.productionTip = false
