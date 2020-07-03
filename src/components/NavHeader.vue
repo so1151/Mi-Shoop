@@ -106,9 +106,9 @@ export default {
   methods: {
     getProductList() {
       this.axios.get("/products").then(res => {
-        this.phoneList = res.phone.list;
-        this.redmiList = res.redmi.list;
-        this.tvList = res.tv.list;
+        this.phoneList = res.list.slice(0,3);
+        this.redmiList = res.list.slice(3,7);
+        this.tvList = res.list.slice(8,9);
       });
     },
     login(){

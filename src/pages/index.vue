@@ -23,7 +23,7 @@
                                     <ul>
                                         <li v-for="(phone,i) in phoneList" :key="i">
                                             <a href="javascript:;">
-                                                <img v-lazy="phone.mainImage" :alt="phone.subtitle">
+                                                <img v-lazy="phone.mainImage" >
                                                 <!-- {{phone.name}} -->
                                             </a>
                                         </li>
@@ -127,8 +127,8 @@
 
 <script>
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import ServiceBar from '../components/ServiceBar';
-import Modal from '../components/Modal';
+import ServiceBar from "../components/ServiceBar";
+import Modal from "../components/Modal";
 import "swiper/css/swiper.css";
 export default {
   name: "index",
@@ -136,13 +136,13 @@ export default {
     Swiper,
     SwiperSlide,
     ServiceBar,
-    Modal,
+    Modal
   },
   data() {
     return {
       phoneList: [],
-      phone:[],
-      showModal:false,
+      phone: [],
+      showModal: false,
       swiperOption: {
         autoplay: true, //自动播放
         effect: "cube", //立方体效果
@@ -178,21 +178,24 @@ export default {
           img: "/imgs/slider/slide-4.jpg"
         }
       ],
-      adsList:[
-          {
-            id:33,
-            img:'/imgs/ads/ads-1.png'
-          },{
-            id:48,
-            img:'/imgs/ads/ads-2.jpg'
-          },{
-            id:45,
-            img:'/imgs/ads/ads-3.png'
-          },{
-            id:47,
-            img:'/imgs/ads/ads-4.jpg'
-          }
-        ],
+      adsList: [
+        {
+          id: 33,
+          img: "/imgs/ads/ads-1.png"
+        },
+        {
+          id: 48,
+          img: "/imgs/ads/ads-2.jpg"
+        },
+        {
+          id: 45,
+          img: "/imgs/ads/ads-3.png"
+        },
+        {
+          id: 47,
+          img: "/imgs/ads/ads-4.jpg"
+        }
+      ]
     };
   },
   mounted() {
@@ -200,23 +203,25 @@ export default {
   },
   methods: {
     getProduct() {
-      this.axios.get("/products/phone").then(res => {
+      this.axios.get("/products").then(res => {
+          console.log(res)
         this.phoneList = res.list;
-        this.phone =res.list.slice(0,8);
+        this.phone = res.list.slice(0, 8);
       });
     },
-    goToCart(){
-        this.$router.push('/cart')
+    goToCart() {
+      this.$router.push("/cart");
     },
     addCart(id) {
-        this.axios.post('/carts',{
-            productId:id,
-            selected:true
-        }).then((res) => {
-            this.showModal = true;
-            console.log(res)
-
+      this.axios
+        .post("/carts", {
+          productId: id,
+          selected: true
         })
+        .then(res => {
+          this.showModal = true;
+          console.log(res);
+        });
     }
   }
 };
@@ -228,7 +233,7 @@ export default {
 
 .swiper-box {
   .nav-menu {
-    @include position($w:234px, $h:450px);
+    @include position($w: 234px, $h: 450px);
     z-index: 9;
     background-color: #55585a7a;
     box-sizing: border-box;
@@ -250,13 +255,13 @@ export default {
           color: $colorG;
           &:after {
             content: " ";
-            @include position($top:17.5px,$right:0);
+            @include position($top: 17.5px, $right: 0);
             @include bgImg(10px, 15px, "/imgs/icon-arrow.png");
           }
         }
         .children {
           display: none;
-          @include position($top:0,$left:234px,$w:992px, $h:450px );
+          @include position($top: 0, $left: 234px, $w: 992px, $h: 450px);
           background-color: $colorG;
           @include border();
           ul {
@@ -267,6 +272,7 @@ export default {
               height: 68px;
               width: 190px;
               line-height: 68px;
+              overflow: hidden;
               a {
                 color: $colorB;
                 font-size: $fontJ;
@@ -285,6 +291,7 @@ export default {
   }
   .swiper-container {
     height: 450px;
+    overflow: hidden;
     width: $min-width;
     .swiper-button-prev {
       left: 260px;
@@ -297,86 +304,91 @@ export default {
     }
   }
 }
-.ads-box{
-    width: 1226px;
-    @include flex();
-    margin-top: 14px;
-    margin-bottom: 30px;
-    a{
-        width: 296px;
-        height: 166px;
-    }
+.ads-box {
+  width: 1226px;
+  @include flex();
+  margin-top: 14px;
+  margin-bottom: 30px;
+  a {
+    width: 296px;
+    height: 166px;
+  }
 }
-.product-box{
-    
-    background-color: $colorJ;
-    padding: 30px 0;
-    h2{
-        font-size: $fontF;
-        color: $colorB;
-        margin-bottom: 20px;
-    }
-    .container{
-        .wrapper{
-            display: flex;
-            height: 620px;
-            .banner-left{
-                img{
-                    width: 224px;
-                }
-            }
-            .list-box{
-                @include flex();
-                flex-wrap: wrap;
-                .list{
-                    width: 236px;
-                    height: 300px;
-                    margin: 0 0 20px 14px;
-                    padding: 20px;
-                    box-sizing: border-box;
-                    background-color: $colorG;
-                    text-align: center;
-                    &:hover{
-                        margin-top: -6px;
-                        box-shadow: 0 15px 30px $colorE;
-                        transition: all .2s;
-                    }
-                    .item-img{
-                        padding-bottom: 10px;
-                        img{
-                            height: 160px;
-                            width: 160px;
-                        }
-                        
-                    }
-                    .item-info{
-                        h3{
-                            font-size: $fontJ;
-                            color: $colorB;
-                            line-height: $fontJ;
-                        }
-                        p{
-                            color: $colorD;
-                            margin: 6px auto 14px;
-                        }
-                        .price{
-                            color: $colorA;
-                            font-size: $fontJ;
-                            font-weight: bold;
-                            cursor: pointer;
-                            &:after{
-                                content: ' ';
-                                vertical-align: middle;
-                                margin-left: 6px;
-                                margin-bottom: 6px;
-                                @include bgImg(22px,22px,'/imgs/icon-cart-hover.png');
-                            }
-                        }
-                    }
-                }
-            }
+.product-box {
+  background-color: $colorJ;
+  padding: 30px 0;
+  h2 {
+    font-size: $fontF;
+    color: $colorB;
+    margin-bottom: 20px;
+  }
+  .container {
+    .wrapper {
+      display: flex;
+      height: 620px;
+      .banner-left {
+        a {
+          display: inline-block;
+          width: 224px;
+          height: 620px;
+          overflow: hidden;
         }
+      }
+      .list-box {
+        @include flex();
+        flex-wrap: wrap;
+        .list {
+          width: 236px;
+          height: 300px;
+          margin: 0 0 20px 14px;
+          padding: 20px;
+          box-sizing: border-box;
+          background-color: $colorG;
+          text-align: center;
+          &:hover {
+            margin-top: -6px;
+            box-shadow: 0 15px 30px $colorE;
+            transition: all 0.2s;
+          }
+          .item-img {
+            padding-bottom: 10px;
+            img {
+              height: 160px;
+              width: 160px;
+            }
+          }
+          .item-info {
+            h3 {
+                width: 196px;
+              font-size: $fontJ;
+              color: $colorB;
+              line-height: $fontJ;
+              white-space:nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
+            p {
+              color: $colorD;
+              margin: 6px auto 14px;
+            }
+            .price {
+              color: $colorA;
+              font-size: $fontJ;
+              font-weight: bold;
+              cursor: pointer;
+              &:after {
+                content: " ";
+                vertical-align: middle;
+                margin-left: 6px;
+                margin-bottom: 6px;
+                @include bgImg(22px, 22px, "/imgs/icon-cart-hover.png");
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }
 </style>
 

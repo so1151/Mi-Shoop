@@ -7,7 +7,7 @@ import { Message } from 'element-ui'
 import App from './App.vue'
 
 //mock开关
-const mock = true;
+const mock = false;
 if(mock) {
   require('./mock/api');
 }
@@ -20,6 +20,7 @@ axios.defaults.timeout = 8000;
 //接口错误拦截
 axios.interceptors.response.use(function(response) {
   let res = response.data;
+  // let path = location.hash;//获取当前路由的hash值
   if(res.status == 0) {
     return res.data;
   }else if(res.status == 10) {
