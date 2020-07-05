@@ -3,6 +3,7 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload' //懒加载
+import store from './store'
 import { Message } from 'element-ui'
 import App from './App.vue'
 
@@ -23,7 +24,7 @@ axios.interceptors.response.use(function(response) {
   // let path = location.hash;//获取当前路由的hash值
   if(res.status == 0) {
     return res.data;
-  }else if(res.status == 10) {
+  }else if(res.status == 10) {//status:10,表示未登录状态
     window.location.href = '/#/login';
     return Promise.reject(res);
   }else {
@@ -38,6 +39,7 @@ axios.interceptors.response.use(function(response) {
 
 
 Vue.use(VueAxios,axios)
+//图片懒加载
 Vue.use(VueLazyLoad, {
   loading:'/imgs/loading-svg/loading-bars.svg'
 })
@@ -46,7 +48,16 @@ Vue.prototype.$message = Message;
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
-  render: h => h(App),
+  render: h => h(App),//渲染函数相当于
+  // render:function(createElement) {
+  //   return createElement(App) //<App/>
+  // }
+  //代替了
+  // components: {
+  //   App
+  // },
+  // template:'<App/>',
 }).$mount('#app')
 

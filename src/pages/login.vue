@@ -110,6 +110,9 @@ export default {
   methods:{
     login(){
       let{ username, password } = this;
+      if(!username && !password) {
+         return alert("账号或密码不能为空!")
+      }
       this.axios.post('/user/login',{
         username,
         password
