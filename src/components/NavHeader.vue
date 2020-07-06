@@ -9,11 +9,11 @@
                     <a href="javascript:;">协议规则</a>
                 </div>
                 <div class="topbar-user">
-                    <a href="javascript:;">王亚敏</a>
-                    <a href="javascript:;" v-if="!username" @click="login">登录</a>
-                    <a href="javascript:;" v-if="username" @click="logout">退出</a>
-                    <a href="javascript:;" v-if="username">我的订单</a>
-                    <a href="javascript:;" class="my-cart" @click="gotoCart"><span class="icon-cart"></span>购物车</a>
+                    <a href="javascript:;">{{username}}</a>
+                    <a href="javascript:;" v-show="!username" @click="login">登录</a>
+                    <a href="javascript:;" v-show="username" @click="logout">退出</a>
+                    <a href="javascript:;" v-show="username">我的订单</a>
+                    <a href="javascript:;" class="my-cart" @click="gotoCart"><span class="icon-cart"></span>购物车{{cartCount}}</a>
                 </div>
             </div>
         </div>
@@ -91,8 +91,16 @@ export default {
       phoneList: [],
       redmiList: [],
       tvList: [],
-      username:'',
+      // username:'',
     };
+  },
+  computed:{
+    username() {
+      return this.$store.state.username;
+    },
+    cartCount() {
+      return this.$store.state.cartCount;
+    }
   },
   filters: {
     currency(val) {
@@ -105,17 +113,26 @@ export default {
   },
   methods: {
     getProductList() {
-      this.axios.get("/products").then(res => {
-        this.phoneList = res.list.slice(0,3);
-        this.redmiList = res.list.slice(3,7);
-        this.tvList = res.list.slice(8,9);
+      this.axios.get("/products",{
+        params:{
+          categoryId:'100012',//商品品类id
+          pageSize:20,
+        }
+      }).then(res => {
+        this.phoneList = res.list.slice(0,6);
+        this.redmiList = res.list.slice(7,13);
+        this.tvList = res.list.slice(13,19);
       });
     },
     login(){
         this.$router.push('/login');
     },
     logout(){
-
+      this.axios.post('/user/logout').then(() => {
+        alert('退出登录成功!')
+        this.$store.dispatch('saveUsername','');
+        this.$store.dispatch('saveCartCount',0);
+      })
     },
     gotoCart(){
         this.$router.push('/cart');

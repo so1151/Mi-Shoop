@@ -3,8 +3,10 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload' //懒加载
+import VueCookies from 'vue-cookies'
 import store from './store'
 import { Message } from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
 
 //mock开关
@@ -25,6 +27,7 @@ axios.interceptors.response.use(function(response) {
   if(res.status == 0) {
     return res.data;
   }else if(res.status == 10) {//status:10,表示未登录状态
+    Message.warning(res.msg);
     window.location.href = '/#/login';
     return Promise.reject(res);
   }else {
@@ -39,10 +42,12 @@ axios.interceptors.response.use(function(response) {
 
 
 Vue.use(VueAxios,axios)
+Vue.use(VueCookies)
 //图片懒加载
 Vue.use(VueLazyLoad, {
   loading:'/imgs/loading-svg/loading-bars.svg'
 })
+
 Vue.prototype.$message = Message;
 
 Vue.config.productionTip = false

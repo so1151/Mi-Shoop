@@ -203,8 +203,12 @@ export default {
   },
   methods: {
     getProduct() {
-      this.axios.get("/products").then(res => {
-          console.log(res)
+      this.axios.get("/products",{
+        params:{
+          categoryId:100012,
+          pageSize:20
+        }
+      }).then(res => {
         this.phoneList = res.list;
         this.phone = res.list.slice(0, 8);
       });
@@ -218,9 +222,9 @@ export default {
           productId: id,
           selected: true
         })
-        .then(res => {
+        .then((res) => {
           this.showModal = true;
-          console.log(res);
+          this.$store.dispatch('saveCartCount',res.cartTotalQuantity)
         });
     }
   }
@@ -354,7 +358,7 @@ export default {
             padding-bottom: 10px;
             img {
               height: 160px;
-              width: 160px;
+              width: 100%;
             }
           }
           .item-info {

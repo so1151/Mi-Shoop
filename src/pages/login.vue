@@ -19,10 +19,10 @@
                   <input type="text" placeholder="请输入账号" v-model="username">
                 </div>
                 <div class="input">
-                  <input type="password" placeholder="请输入密码" v-model="password">
+                  <input type="password" placeholder="请输入密码" v-model="password" @keyup.enter="login">
                 </div>
                 <div class="btn-box">
-                  <a href="javascript:;" class="btn" @click="login">登录</a>
+                  <a href="javascript:;" class="btn" @click="login" >登录</a>
                 </div>
                 <div class="tips">
                   <div class="sms checked" @click="loginType=3" >手机短信登录/注册</div>
@@ -73,10 +73,10 @@
                   <a class="btn get-ver-code" disabled="disabled">获取验证码</a>
                 </div>
                 <div class="btn-box">
-                  <a href="javascript:;" class="btn">立即登录/注册</a>
+                  <a href="javascript:;" class="btn" @click="register">立即登录/注册</a>
                 </div>
                 <div class="tips">
-                  <div class="sms checked" @click="loginType=1">用户名密码登录</div>
+                  <div class="sms checked" @click="loginType=1" >用户名密码登录</div>
                   <div class="reg-box">
                     <span class="reg">收不到验证码</span>
                   </div>
@@ -92,6 +92,7 @@
 
 <script>
 import NavFooter from "../components/NavFooter";
+import { mapActions } from 'vuex';
 export default {
   name: "login",
   components: {
@@ -108,6 +109,7 @@ export default {
   mounted() {
   },
   methods:{
+    ...mapActions(['saveUsername']),
     login(){
       let{ username, password } = this;
       if(!username && !password) {
@@ -117,7 +119,9 @@ export default {
         username,
         password
       }).then((res) => {
-        console.log(res)
+        this.$cookies.set('userId',res.id,{expires:'Session'})
+        // this.$store.dispatch('saveUsername',res.username)
+        this.saveUsername(res.username)
         this.$router.push({
           name:'index',
           params:{
@@ -125,6 +129,18 @@ export default {
           }
         })
       })
+    },
+    register() {
+      this.axios.post('/user/register',{
+        username:'wym',
+        password:'wym',
+        email:'wym@gmail.com'
+      }).then(() => {
+        alert("注册成功!")
+      })
+    },
+    nextInput(event) {
+      console.log(event)
     }
   }
 };
