@@ -9,7 +9,7 @@
                                 <div class="children">
                                     <ul>
                                         <li v-for="(phone,i) in phoneList" :key="i">
-                                            <a href="javascript:;">
+                                            <a :href="'/#/product/'+ phone.id">
                                                 <img v-lazy="phone.mainImage" :alt="phone.subtitle">
                                                 {{phone.name}}
                                             </a>
@@ -22,7 +22,7 @@
                                 <div class="children">
                                     <ul>
                                         <li v-for="(phone,i) in phoneList" :key="i">
-                                            <a href="javascript:;">
+                                            <a :href="'/#/product/'+phone.id">
                                                 <img v-lazy="phone.mainImage" >
                                                 <!-- {{phone.name}} -->
                                             </a>

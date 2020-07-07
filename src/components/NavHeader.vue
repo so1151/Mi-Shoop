@@ -44,7 +44,7 @@
                         <div class="children">
                             <ul class="children-list">
                                 <li class="product" v-for="(redmi,j) in redmiList" :key="j">
-                                    <a :href="'/#/product'+redmi.id" target="_blank">
+                                    <a :href="'/#/product/'+redmi.id" target="_blank">
                                         <div class="pro-img">
                                             <img v-lazy="redmi.mainImage" :alt="redmi.subtitle">
                                         </div>
@@ -60,7 +60,7 @@
                         <div class="children">
                             <ul class="children-list">
                                 <li class="product" v-for="(tv,k) in tvList" :key="k">
-                                    <a :href="'/#/product'+tv.id" target="_blank">
+                                    <a :href="'/#/product/'+tv.id" target="_blank">
                                         <div class="pro-img">
                                             <img v-lazy="tv.mainImage" :alt="tv.subtitle">
                                         </div>
@@ -246,7 +246,8 @@ export default {
               text-align: center;
               a {
                 width: inherit;
-                display: inline-block;
+                position: relative;
+                z-index: 5;
               }
               .pro-img {
                 height: 136px;
