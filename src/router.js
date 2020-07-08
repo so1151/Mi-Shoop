@@ -43,17 +43,17 @@ export default new Router({
             component: () => import('./pages/order.vue'),
             children:[
                 {
-                    path:'/list',
+                    path:'list',
                     name:'order-list',
                     component: () => import('./pages/orderList.vue')
                 },
                 {
-                    path:'/confirm',
+                    path:'confirm',
                     name:'order-confirm',
                     component: () => import('./pages/orderConfirm.vue')
                 },
                 {
-                    path:'/pay',
+                    path:'pay',
                     name:'order-pay',
                     component: () => import('./pages/orderPay.vue')
                 },

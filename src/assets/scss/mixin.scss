@@ -35,4 +35,7 @@
     @if($border == 'border-top') {
         border-top: $bw $bc $bs;
     }
+    @if($border == 'border-bottom') {
+        border-bottom: $bw $bs $bc;
+    }
 }

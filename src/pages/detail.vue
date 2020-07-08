@@ -109,11 +109,12 @@ export default {
             selected:true
         }).then((res={cartProductVoList:0}) => {
             this.$store.dispatch('saveCartCount', res.cartTotalQuantity)
+            this.$message.success('添加购物车成功')
             // this.$router.push('/cart')
         })
     }
   }
-};
+}; 
 </script>
 
 <style lang="scss">
