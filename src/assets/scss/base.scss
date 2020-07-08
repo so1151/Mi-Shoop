@@ -17,3 +17,21 @@ a{
 .checked{
     color: $colorA;
 }
+
+//清除浮动
+.clearfix:before,.clearfix:after{
+    content:' ';
+    display: table;
+}
+.clearfix:after{
+    clear:both;
+}
+
+//左浮动
+.fl{
+    float: left;
+}
+//右fudong
+.fr{
+    float: right;
+}
