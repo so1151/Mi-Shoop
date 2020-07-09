@@ -87,9 +87,10 @@ export default {
       list: [], //商品列表
       cartTotalPrice: 0, //商品总金额
       checkedNum: 0, //选中的商品数量
+      checkedProduct:0,//选中的产品
       totals: 0, //购物车商品总数
       showModal: false,
-      delProductId: "" //
+      delProductId: "", //
     };
   },
   mounted() {
@@ -152,7 +153,6 @@ export default {
     //购物车下单
     order(){
         let isCheck = this.list.every(item => !item.productSelected)
-        console.log(isCheck);
         if(isCheck){
             this.$message.warning('请选择一件商品');
         }else{
@@ -165,15 +165,13 @@ export default {
       this.allChecked = res.selectedAll;
       this.cartTotalPrice = res.cartTotalPrice;
       this.totals = res.cartTotalQuantity;
+      this.checkedNum = 0,
       //选中产品的信息数组
-      let checkedInfoArr = this.list
-        .filter(item => item.productSelected)
-        .map(item => item.quantity);
+      this.checkedProduct = this.list.filter(item => item.productSelected)
       //选中产品的产品数量总和
-      this.checkedNum = checkedInfoArr.reduce(
-        (total, number) => total + number,
-        0
-      );
+      this.checkedProduct.map((item) => {
+         this.checkedNum += item.quantity
+      })
     }
   }
 };
