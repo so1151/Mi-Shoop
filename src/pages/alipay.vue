@@ -24,12 +24,14 @@ export default {
     },
     methods:{
         paySubmit(){
+            this.loading = true;
             this.axios.post('/pay',{
                 orderId:this.orderId,
                 orderName:'Vue高仿小米商城',
                 amount:0.01,
                 payType:1 //1:支付宝 2:微信
             }).then((res) => {
+                this.loading = false;
                 this.l = res
                 this.content = res.content;
                 setTimeout(() => {
