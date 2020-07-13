@@ -122,6 +122,10 @@
                     <p>商品添加成功!</p>
                 </template>
             </modal>
+
+            <div>
+              <input type="file" accept="image/*" ref="input" @change="fn">
+            </div>
     </div>
 </template>
 
@@ -226,6 +230,9 @@ export default {
           this.showModal = true;
           this.$store.dispatch('saveCartCount',res.cartTotalQuantity)
         });
+    },
+    fn(){
+      console.log(this.$refs.input)
     }
   }
 };

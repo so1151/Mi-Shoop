@@ -35,7 +35,7 @@ export default {
                 this.l = res
                 this.content = res.content;
                 setTimeout(() => {
-                    //获取当前页面的第一个表单
+                    //获取当前页面的第一个表单 提交,提交之后才会渲染
                     document.forms[0].submit();
                 },100);
             })

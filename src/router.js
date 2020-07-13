@@ -19,7 +19,9 @@ export default new Router({
                 },{
                     path:'/product/:id',
                     name:'product',
-                    component: () => import('./pages/product.vue')
+                    // component: () => import('./pages/product.vue')
+                    //函数是不会被立即执行的,当需要的时候才会执行
+                    component: resolve => require(['./pages/product.vue'],resolve)
                 },{
                     path:'/detail/:id',
                     name:'detail',
@@ -55,7 +57,7 @@ export default new Router({
                 {
                     path:'pay',
                     name:'order-pay',
-                    component: () => import('./pages/orderPay.vue')
+                    component:() => import('./pages/orderConfirm.vue')   
                 },
                 {
                     path:'alipay',

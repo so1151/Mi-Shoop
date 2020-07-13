@@ -1,8 +1,8 @@
 <template>
     <div class="order-pay">
-        <order-header title="订单支付">
+      <order-header title="订单支付">
             <template v-slot:tip>
-                <span>请谨防钓鱼链接或诈骗电话，了解更多</span>
+                <span>请谨防钓鱼链接或诈骗电话，了解更多 ></span>
             </template>
         </order-header>
         <div class="wrapper">
@@ -74,15 +74,15 @@
 
 <script>
 import QRCode from "qrcode";
-import OrderHeader from "../components/OrderHeader";
 import ScanPayCode from "../components/ScanPayCode";
+import OrderHeader from "../components/OrderHeader";
 import Modal from "../components/Modal";
 export default {
   name: "order-pay",
   components: {
-    OrderHeader,
     ScanPayCode,
-    Modal
+    Modal,
+    OrderHeader
   },
   data() {
     return {
@@ -127,7 +127,7 @@ export default {
           })
           .then(res => {
             QRCode.toDataURL(res.content)
-              .then(url => {
+              .then(url => {//将连接转化为base64格式的图片
                 this.showPay = true;
                 this.payImg = url;
                 this.loopOrderState();

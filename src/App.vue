@@ -10,6 +10,7 @@
 export default {
   name: 'App',
   mounted() {
+    //用户没有登录的话,就不去获取用户信息,和购物车数量
     if(this.$cookies.get('userId')) {
       this.getUser();
       this.getCartCount();

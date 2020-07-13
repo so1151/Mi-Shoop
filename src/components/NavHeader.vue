@@ -12,7 +12,7 @@
                     <a href="javascript:;">{{username}}</a>
                     <a href="javascript:;" v-show="!username" @click="login">登录</a>
                     <a href="javascript:;" v-show="username" @click="logout">退出</a>
-                    <a href="javascript:;" v-show="username">我的订单</a>
+                    <a href="/#/order/list" v-show="username">我的订单</a>
                     <a href="javascript:;" class="my-cart" @click="gotoCart"><span class="icon-cart"></span>购物车{{cartCount}}</a>
                 </div>
             </div>
@@ -110,6 +110,10 @@ export default {
   },
   mounted() {
     this.getProductList();
+    let params = this.$route.params;
+    if(params && params.from == 'login'){
+      this.getCartCount();
+    }
   },
   methods: {
     getProductList() {
@@ -137,6 +141,11 @@ export default {
     gotoCart(){
         this.$router.push('/cart');
     },
+    getCartCount(){
+      this.axios.get('/carts/products/sum').then((res) => {
+        this.$store.dispatch('saveCartCount',res)
+      })
+    }
   }
 };
 </script>

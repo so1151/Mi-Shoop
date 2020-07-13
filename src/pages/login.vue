@@ -119,12 +119,13 @@ export default {
         username,
         password
       }).then((res) => {
+        //{expires:'Session}过期时间是会话级别的,浏览器关闭cookie过期
         this.$cookies.set('userId',res.id,{expires:'Session'})
         // this.$store.dispatch('saveUsername',res.username)
         this.saveUsername(res.username)
         this.$router.push({
           name:'index',
-          params:{
+          params:{//参数不被挂在路由上
             from:'login'
           }
         })

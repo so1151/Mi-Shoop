@@ -1,7 +1,7 @@
 <template>
     <div class="order-confirm">
-        <order-header title="订单确认">
-            <template slot="tip">
+      <order-header title="订单确认">
+            <template v-slot:tip>
                 <span>请认真填写收货地址</span>
             </template>
         </order-header>
@@ -170,8 +170,8 @@ import Modal from "../components/Modal";
 export default {
   name: "order-confirm",
   components: {
-    OrderHeader,
-    Modal
+    Modal,
+    OrderHeader
   },
   data() {
     return {

@@ -20,11 +20,11 @@ axios.defaults.baseURL = '/api';
 //请求最长时间
 axios.defaults.timeout = 8000;
 
-//接口错误拦截
+//所有接口的错误拦截
 axios.interceptors.response.use(function(response) {
   let res = response.data;
   // let path = location.hash;//获取当前路由的hash值
-  if(res.status == 0) {
+  if(res.status == 0) {//拦截业务接口错误异常
     return res.data;
   }else if(res.status == 10) {//status:10,表示未登录状态
     Message.warning(res.msg);
@@ -34,7 +34,7 @@ axios.interceptors.response.use(function(response) {
     Message.warning(res.msg);
     return Promise.reject(res);
   }
-},(error) => {
+},(error) => {//拦截服务器错误 状态码500(服务器异常)
   let res = error.response;
   Message.error(res.data.message);
   return Promise.reject(error)
@@ -48,7 +48,7 @@ Vue.use(VueLazyLoad, {
   loading:'/imgs/loading-svg/loading-bars.svg'
 })
 
-Vue.prototype.$message = Message;
+Vue.prototype.$message = Message; //激活插件
 
 Vue.config.productionTip = false
 
